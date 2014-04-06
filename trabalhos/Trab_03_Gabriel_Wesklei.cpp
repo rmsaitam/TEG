@@ -175,3 +175,8 @@ int main(){
 
 	return 0;
 }
+
+
+//links uteis
+//http://www.professeurs.polymtl.ca/michel.gagnon/Disciplinas/Bac/Grafos/EulerHam/euler_ham.html
+//http://www.geeksforgeeks.org/fleurys-algorithm-for-printing-eulerian-path/
