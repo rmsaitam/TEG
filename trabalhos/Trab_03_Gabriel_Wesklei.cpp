@@ -37,7 +37,6 @@ void imprime(VVI& dist){
  */
 int contaVizinhosDeV(int v)
 {
-
 	int contador = 0;
 
 	for(int i=0;i<V;++i)

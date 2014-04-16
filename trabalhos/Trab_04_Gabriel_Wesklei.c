@@ -3,15 +3,12 @@
 #include <string.h>
 #include <time.h>
 
-//typedef struct noList{
-	//pTRE
 
 typedef struct TREE *pTREE,**ppTREE;
 
 typedef struct TREE{
 	int data;
-	pTREE pLeft;
-	pTREE pRight;
+	ppTREE ppFilhos;
 }TREE;
 
 void printDataAsChar(pTREE pTree);
@@ -86,8 +83,9 @@ void menu() {
 	clock_t time_start, time_end;
 
 	int menu, status = 0, position;
-	int noValue;
-	TREE rootTree;
+	int noValue, n_elem,i,j;
+	int pai, qt_filhos,filho;
+	pTREE pRoot;
 
 	
 
@@ -108,27 +106,46 @@ void menu() {
 
 		switch (menu) {
 			case 0:
+
+				printf("\n Quantas entradas:");
+				printf("\n");
+				scanf("%d",&n_elem);
+				
+				pRoot = malloc(sizeof(TREE));
+				pRoot->ppFilhos = malloc(sizeof(pTREE));
+				*(pRoot)->ppFilhos = malloc(sizeof(pTREE) * n_elem);
+
 				printf("\n Qual a raiz:");
 				printf("\n");
 
 				scanf("%d",&noValue);
 
-				rootTree.data = noValue;
-				rootTree.pLeft = NULL;
-				rootTree.pRight = NULL;
+				pRoot->data = noValue;
 				
-				while(1)
+				for(i=0;i<n_elem;i++)
 				{
-					printf("Digite os nos filhos: [0] Para sair\n");					
-					printf("Qual o valor:\n");
+					printf("Digite o [elemto pai] [quantidade filhos] [cada filho ate [quantidade filhos]]  [-1 ou elem inexistente] Para parar\n");
 
-					scanf("%d",&noValue);
+					scanf("%d",&pai);
 					
-					pNewTree = malloc(sizeof(TREE));
-					pNewTree->pLeft = NULL;
-					pNewTree->pRight = NULL;
-					pNewTree->data = noValue;    
-					insertTree(&rootTree,pNewTree);
+					//achar pai na arvore, se nao exit
+					//dfs
+					ppTREE ppPai;
+					ppPai = malloc(sizeof(pTREE));
+					//apontar para o pai que achou
+					
+					scanf("%d",&qt_filhos);
+					
+					*ppPai = malloc(sizeof(TREE) * qt_filhos);
+					pTREE pFilho;
+					for(j=0;j<qt_filhos;j++)
+					{
+						pFilho = malloc(sizeof(TREE));
+						scanf("%d",&filho);
+						pFilho->data = filho;
+						
+						memcpy(ppPai[j],pFilho,sizeof(TREE));
+					}
 						
 				}
 				status = 1;
