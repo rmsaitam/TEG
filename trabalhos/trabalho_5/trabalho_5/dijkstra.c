@@ -103,7 +103,7 @@ int carregaMatrizAdjArquivo(Grafo *grafo, int *n_vertices) {
     int i, j, test_qt_vertic_read = 0;
     int adj_valor, adj_peso;
 
-    fp = fopen(arq5, "r");
+    fp = fopen(arq6, "r");
     if (fp == NULL)
         return FRACASSO;
 

@@ -1,7 +1,113 @@
 #include "../main.h"
 
+/**
+ * 
+ * @param grafo
+ * @param s
+ * @param t
+ * @param n_vertices
+ * @param caminho
+ * @param distancia
+ * @return 
+ */
+int bellmannford(Grafo *grafo, int s, int t, int n_vertices, int *caminho, int *distancia) {
+
+    int visitados[n_vertices];
+    int atual, i, k, dist_atual;
+    int menor_dist, nova_dist;
+
+    //inicializa a lista de visitados e distancia com valor padrao
+    for (i = 0; i < n_vertices; i++) {
+        distancia[i] = INFINITO;
+    }
+
+    //inicia em S entao marca que visitou
+    distancia[s] = 0; //pra ele mesmo eh zero
+
+    //marca s o ponto inicial
+    atual = s;
+    k = atual;
+
+    //repete n_vertices
+    for (i = 1; i <= n_vertices - 1; i++) {
+
+        //enquanto nao chegar no vertice final informado 't'
+        while (atual != t) {
+
+            menor_dist = INFINITO;
+            dist_atual = distancia[atual];
+
+            for (i = 0; i < n_vertices; i++) {
+
+                //se nao visitou ainda
+                if (visitados[i] == NAOVISITOU) {
+
+                    nova_dist = dist_atual + grafo->matriz[atual][i].peso;
+
+                    //verifica se a distancia apartir do atual eh menor
+                    //se for atualiza o vetor de distancia e de caminho percorrido
+                    if (nova_dist < distancia[i]) {
+                        distancia[i] = nova_dist;
+                        caminho[i] = atual;
+                    }
+
+                    //compara com o geral
+                    //se a distancia avaliada eh menor que a menor encontrada ate o momento
+                    //atualiza o menor global e guarda o indice no 'k'
+                    if (distancia[i] < menor_dist) {
+                        menor_dist = distancia[i];
+                        k = i;
+                    }
+                }
+            }
+
+            //evita loop infinito
+            if (atual == k) {
+                printf("\nCaminho nao foi encontrado!\n");
+                return FRACASSO;
+            }
+
+            atual = k;
+            visitados[atual] = VISITOU;
+        }
+
+        for (j = 0; j < n_vertices; j++) {
+
+            //se tem adjacencia faz 'relaxamento'
+            if (grafo->matriz[i][j].adj != 0) {
+                nova_dist = dist_atual + grafo->matriz[i][j].peso;
+
+                //verifica se a distancia apartir do atual eh menor
+                //se for atualiza o vetor de distancia e de caminho percorrido
+                if (nova_dist < distancia[i]) {
+                    distancia[i] = nova_dist;
+                    caminho[i] = i;
+                    dist_atual = nova_dist;
+                }
+            }
+        }
+    }
 
 
+    for (i = 0; i < n_vertices; i++) {
+        for (j = 0; j < n_vertices; j++) {
+
+            //se tem adjacencia faz teste
+            if (grafo->matriz[i][j].adj != 0) {
+                nova_dist = dist_atual + grafo->matriz[i][j].peso;
+
+                //verifica se a distancia apartir do atual eh menor
+                //se for atualiza o vetor de distancia e de caminho percorrido
+                if (nova_dist < distancia[i]) {
+                    //return FRACASSO;
+                    printf("Grafo contem ciclo negativo!\n");
+                }
+            }
+        }
+    }
+
+    return SUCESSO;
+}
 
 void menuBellmanFord(void) {
     char opcao;
@@ -67,7 +173,7 @@ void menuBellmanFord(void) {
                     distancia[i] = INFINITO;
                 }
 
-                if (dijkstra(&grafo, s, t, n_vertices, caminho, distancia)) {
+                if (bellmannford(&grafo, s, t, n_vertices, caminho, distancia)) {
 
                     printf("\n\n Caminho percorrido: ");
                     caminho_iterator = t;
@@ -84,7 +190,7 @@ void menuBellmanFord(void) {
 
                     printf("\n\nCusto de %d ate %d: %d\n\n", s, t, distancia[t]);
                 } else {
-                    printf("\nERRO! Problema ao executar Dijkstra de %d ate %d!\n", s, t);
+                    printf("\nERRO! Problema ao executar BellmanFord de %d ate %d!\n", s, t);
                 }
 
 
@@ -123,3 +229,6 @@ void menuBellmanFord(void) {
         getchar();
     } while (opcao != 0);
 }
+
+//http://www.geeksforgeeks.org/dynamic-programming-set-23-bellman-ford-algorithm/
+//http://www.cs.dartmouth.edu/~cs57/Project/bellman-ford.c
