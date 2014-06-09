@@ -13,7 +13,7 @@
 int bellmannford(Grafo *grafo, int s, int t, int n_vertices, int *caminho, int *distancia) {
 
     int visitados[n_vertices];
-    int atual, i, k, dist_atual;
+    int atual, i, k,j, dist_atual;
     int menor_dist, nova_dist;
 
     //inicializa a lista de visitados e distancia com valor padrao

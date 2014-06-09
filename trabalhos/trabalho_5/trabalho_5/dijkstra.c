@@ -40,7 +40,8 @@ int dijkstra(Grafo *grafo, int s, int t, int n_vertices, int *caminho, int *dist
     int visitados[n_vertices];
     int atual, i, k, dist_atual;
     int menor_dist, nova_dist;
-
+    int caminho_iterator;
+    
     //inicializa a lista de visitados e distancia com valor padrao
     for (i = 0; i < n_vertices; i++) {
         visitados[i] = NAOVISITOU;
@@ -84,6 +85,21 @@ int dijkstra(Grafo *grafo, int s, int t, int n_vertices, int *caminho, int *dist
                 }
             }
         }
+        
+//        printf("\n\n Caminho percorrido: ");
+//                    caminho_iterator = t;
+//
+//                    printf("%d <- ", t);
+//
+//                    while (caminho_iterator != s) {
+//                        printf("%d", caminho[caminho_iterator]);
+//                        caminho_iterator = caminho[caminho_iterator];
+//
+//                        if (caminho_iterator != s)
+//                            printf(" <- ");
+//                    }
+//
+//                    printf("\n\nCusto de %d ate %d: %d\n\n", s, t, distancia[t]);
 
         //evita loop infinito
         if (atual == k) {
