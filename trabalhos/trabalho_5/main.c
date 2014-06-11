@@ -18,7 +18,7 @@ int main(int argc, char** argv) {
         printf("\t ---Teoria dos grafos---\n");
         printf("Deseja executar qual questao?\n "
                 "\t[1] T4) Trabalho 4 - Arvore e percursos\n "
-                "\t[2] T5) Trabalho 5 - Dijkstra e Bellman-Ford\n "
+                "\t[2] T5) Trabalho 5 - Dijkstra\n "
                 "\t[0] Para Sair..."
                 "\nOpcao: ");
         scanf("%d", &opc);

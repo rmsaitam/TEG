@@ -11,7 +11,6 @@ int menuTrab5() {
         printf("\t ---Teoria dos grafos---\n");
         printf("Deseja executar qual questao?\n "
                 "\t[1] T5) Trabalho 5 - Dijkstra \n "
-                "\t[2] T5) Trabalho 5 - Bellman-Ford\n "
                 "\t[0] Para Sair..."
                 "\nOpcao: ");
         scanf("%d", &opc);
@@ -22,7 +21,7 @@ int menuTrab5() {
                 menuDijkstra();
                 break;
             case 2:
-                menuBellmanFord();
+              //  menuBellmanFord();
                 break;
             default:
             {
